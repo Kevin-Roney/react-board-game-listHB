@@ -1,8 +1,23 @@
 import { useState } from 'react';
 import { signIn, signUp } from './services/fetch-utils.js';
 
-export default function AuthPage(props) {
+export default function AuthPage({ setEmail, setToken}) {
   // you'll need to track the form state of the email and password
+  const [{ 
+    email: signUpEmail, 
+    password: signUpPassword,
+  }, setSignUpFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  const [{ 
+    email: signInEmail, 
+    password: signInPassword,
+  }, setSignInFormData] = useState({
+    email: '',
+    password: ''
+  });
 
   async function handleSignIn(e) {
     e.preventDefault();
