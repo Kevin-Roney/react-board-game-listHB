@@ -26,10 +26,13 @@ export default function App() {
       setToken(user.access_token);
       setEmail(user.user.email);
     }
-  });
+  }, []);
   async function handleLogout() {
     // call the logout function
+    await logout();
     // clear the user in state
+    setEmail('');
+    setToken('');
   }
 
   return (
