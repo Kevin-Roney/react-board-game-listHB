@@ -40,6 +40,21 @@ export default function App() {
       <div className='App'>
         <header>
           {/* if there is a user in state, render out a link to the board games list, the create page, and add a button to let the user logout */}
+          {
+            token 
+              ? <>
+                <NavLink
+                  to="/board-games"
+                  className={isActive => 'nav-link' + (!isActive ? ' unselected' : '')} 
+                />
+                <NavLink
+                  to="/create"
+                  className={isActive => 'nav-link' + (!isActive ? ' unselected' : '')} 
+                />
+                <button onClick={handleLogout}>Logout?</button>
+              </>
+              : <p></p>
+          }
         </header>
         <main>
           <Switch>
