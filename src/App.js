@@ -20,7 +20,13 @@ export default function App() {
   const [email, setEmail] = useState();
   const [token, setToken] = useState();
   // add a useEffect to get the user and inject the user object into state on load
-
+  useEffect(() => {
+    const user = getUser();
+    if (user) {
+      setToken(user.access_token);
+      setEmail(user.user.email);
+    }
+  });
   async function handleLogout() {
     // call the logout function
     // clear the user in state
