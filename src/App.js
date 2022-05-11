@@ -60,6 +60,11 @@ export default function App() {
           <Switch>
             <Route exact path="/">
               {/* if there is a user, redirect to the board games list. Otherwise, render the auth page. Note that the AuthPage will need a function called setUser that can set the user state in App.js */}
+              {
+                token 
+                  ? <Redirect to='/board-games' />
+                  : <AuthPage setEmail={setEmail} setToken={setToken} />
+              }
             </Route>
             <Route exact path="/board-games">
               {/* if there is a user, render the board games list. Otherwise, redirect to the home route/auth page */}
