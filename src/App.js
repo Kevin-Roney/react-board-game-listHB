@@ -84,7 +84,7 @@ export default function App() {
                   : <Redirect to='/'/>
               }
             </Route>
-            <Route exact path='/board-games/:id'>
+            <Route exact path="/board-games/:id">
               {
                 token
                   ? <UpdatePage />
