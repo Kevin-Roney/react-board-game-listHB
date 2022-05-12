@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useRouteMatch } from 'react-router-dom';
-import { getGameById } from './services/fetch-utils';
+import { getGameById, updateGames } from './services/fetch-utils';
 
 export default function UpdatePage() {
   // you'll need the history hook from react-router-dom to do your redirecting in the handleSubmit
-
+  const { push } = useHistory();
+  const { id } = useParams();
   // here's the state you'll need:
     // title;
     // genre;
@@ -12,28 +15,47 @@ export default function UpdatePage() {
     // description;
     // minPlayers;
     // maxPlayers;
+  const [gameInForm, setGameInForm] = useState({
+    title: '',
+    genre: '',
+    min_players: 0,
+    max_players: 0,
+    designer: '',
+    description: ''
+  });
+
+  useEffect(() => {
+    async function fetch() {
+
+      const gameData = await getGameById(id);
+
+      setGameInForm(gameData);
+    }
+    fetch();
+  }, [id]);
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // create a game
-
+    // update a game
+    await updateGames(id, gameInForm);
     // use history.push to send the user to the list page
+    push('/board-games');
   }
   return (
-    <div className='update'>
+    <div className='create'>
       {/* on submit, call your handleSubmit function */}
-      <form>
-        <h2>Add board game</h2>
+      <form onSubmit={handleSubmit}>
+        <h2>Update {gameInForm.title}</h2>
         <label>
             Title
           {/* on change, set the title in state */}
-          <input required name='title' />
+          <input required value={gameInForm.title} name='title' onChange={(e) => setGameInForm({ ...gameInForm, title: e.target.value })}/>
         </label>
         <label>
             Genre
           {/* on change, set the genre in state */}
-          <select required>
+          <select required value={gameInForm.genre} onChange={(e) => setGameInForm({ ...gameInForm, genre: e.target.value })}>
             <option>Tile-laying</option>
             <option>Economic</option>
             <option>War</option>
@@ -46,24 +68,24 @@ export default function UpdatePage() {
         <label>
             Designer
           {/* on change, set the designer in state */}
-          <input required name='designer' />
+          <input required value={gameInForm.designer} name='designer' onChange={(e) => setGameInForm({ ...gameInForm, designer: e.target.value })}/>
         </label>
         <label>
             Min Players
           {/* on change, set the min players in state */}
-          <input required name='min_players' />
+          <input required value={gameInForm.min_players} name='min_players' onChange={(e) => setGameInForm({ ...gameInForm, min_players: e.target.value })}/>
         </label>
         <label>
             Max Players
           {/* on change, set the max players in state */}
-          <input required name='max_players' />
+          <input required value={gameInForm.max_players} name='max_players' onChange={(e) => setGameInForm({ ...gameInForm, max_players: e.target.value })}/>
         </label>
         <label>
             Description
           {/* on change, set the description in state */}
-          <textarea required name='max_players' />
+          <input required value={gameInForm.description} name='description' onChange={(e) => setGameInForm({ ...gameInForm, description: e.target.value })}/>
         </label>
-        <button>Create game</button>
+        <button>Update game</button>
       </form>
     </div>
   );

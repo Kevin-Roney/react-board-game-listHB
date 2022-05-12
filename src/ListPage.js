@@ -13,7 +13,7 @@ export default function ListPage() {
       setGames(gameData);
     }
     fetch();
-  });
+  }, []);
   return (
     <div className='list games'>
       {/* map through the games in state and render Game components */}
