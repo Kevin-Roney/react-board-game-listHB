@@ -32,12 +32,12 @@ export default function CreatePage() {
         <label>
             Title
           {/* on change, set the title in state */}
-          <input required value={gameInForm.title} name='title' onChange={(e) => setGameInForm({ ...setGameInForm, title: e.target.value })}/>
+          <input required value={gameInForm.title} name='title' onChange={(e) => setGameInForm({ ...gameInForm, title: e.target.value })}/>
         </label>
         <label>
             Genre
           {/* on change, set the genre in state */}
-          <select required value={gameInForm.genre} onChange={(e) => setGameInForm({ ...setGameInForm, genre: e.target.value })}>
+          <select required value={gameInForm.genre} onChange={(e) => setGameInForm({ ...gameInForm, genre: e.target.value })}>
             <option>Tile-laying</option>
             <option>Economic</option>
             <option>War</option>
@@ -50,22 +50,22 @@ export default function CreatePage() {
         <label>
             Designer
           {/* on change, set the designer in state */}
-          <input required value={gameInForm.designer} name='designer' onChange={(e) => setGameInForm({ ...setGameInForm, designer: e.target.value })}/>
+          <input required value={gameInForm.designer} name='designer' onChange={(e) => setGameInForm({ ...gameInForm, designer: e.target.value })}/>
         </label>
         <label>
             Min Players
           {/* on change, set the min players in state */}
-          <input required value={gameInForm.min_players} name='min_players' onChange={(e) => setGameInForm({ ...setGameInForm, min_players: e.target.value })}/>
+          <input required value={gameInForm.min_players} name='min_players' onChange={(e) => setGameInForm({ ...gameInForm, min_players: e.target.value })}/>
         </label>
         <label>
             Max Players
           {/* on change, set the max players in state */}
-          <input required value={gameInForm.max_players} name='max_players' onChange={(e) => setGameInForm({ ...setGameInForm, max_players: e.target.value })}/>
+          <input required value={gameInForm.max_players} name='max_players' onChange={(e) => setGameInForm({ ...gameInForm, max_players: e.target.value })}/>
         </label>
         <label>
             Description
           {/* on change, set the description in state */}
-          <input required value={gameInForm.description} name='description' onChange={(e) => setGameInForm({ ...setGameInForm, description: e.target.value })}/>
+          <input required value={gameInForm.description} name='description' onChange={(e) => setGameInForm({ ...gameInForm, description: e.target.value })}/>
         </label>
         <button>Create game</button>
       </form>
