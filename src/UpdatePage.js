@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import { useRouteMatch } from 'react-router-dom';
 import { getGameById, updateGames } from './services/fetch-utils';
 
 export default function UpdatePage() {
