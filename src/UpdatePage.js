@@ -1,11 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import { createGame } from './services/fetch-utils';
+import { getGameById, updateGames } from './services/fetch-utils';
 
-export default function CreatePage() {
+export default function UpdatePage() {
   // you'll need the history hook from react-router-dom to do your redirecting in the handleSubmit
-  const history = useHistory();
+  const { push } = useHistory();
+  const { id } = useParams();
   // here's the state you'll need:
+    // title;
+    // genre;
+    // designer;
+    // description;
+    // minPlayers;
+    // maxPlayers;
   const [gameInForm, setGameInForm] = useState({
     title: '',
     genre: '',
@@ -15,20 +23,29 @@ export default function CreatePage() {
     description: ''
   });
 
+  useEffect(() => {
+    async function fetch() {
+
+      const gameData = await getGameById(id);
+
+      setGameInForm(gameData);
+    }
+    fetch();
+  }, [id]);
+
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // create a game
-    await createGame(gameInForm);
+    // update a game
+    await updateGames(id, gameInForm);
     // use history.push to send the user to the list page
-    history.push('/board-games');
+    push('/board-games');
   }
-
   return (
     <div className='create'>
       {/* on submit, call your handleSubmit function */}
       <form onSubmit={handleSubmit}>
-        <h2>Add board game</h2>
+        <h2>Update {gameInForm.title}</h2>
         <label>
             Title
           {/* on change, set the title in state */}
@@ -67,7 +84,7 @@ export default function CreatePage() {
           {/* on change, set the description in state */}
           <input required value={gameInForm.description} name='description' onChange={(e) => setGameInForm({ ...gameInForm, description: e.target.value })}/>
         </label>
-        <button>Create game</button>
+        <button>Update game</button>
       </form>
     </div>
   );

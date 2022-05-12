@@ -55,3 +55,12 @@ export async function getGameById(id) {
 
   return checkError(response);    
 }
+
+export async function updateGames(id, newGame) {
+  const response = await client
+    .from('board_games')
+    .update(newGame)
+    .match({ id });
+
+  return checkError(response);
+}
